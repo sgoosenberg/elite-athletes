@@ -1,0 +1,17 @@
+# Private athlete data and exports
+names.json
+atletes.json
+phone numbers.csv
+
+# Secrets
+.env
+.env.*
+
+# Python environment and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# macOS
+.DS_Store
