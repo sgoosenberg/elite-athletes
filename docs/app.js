@@ -28,7 +28,7 @@ form.addEventListener('submit', async event => {
     const data = await response.json();
     if (data.submitted !== true) throw new Error('Unconfirmed submission');
     form.reset();
-    message('Application received! The organizer will review your submission.');
+    message('Application received. Thank you! The organizer will review your submission.');
   } catch {
     message('We could not confirm your submission. It may have saved; contact the organizer before submitting again.', true);
   } finally {
