@@ -1,0 +1,30 @@
+[
+  {
+    "id": "legacy-0",
+    "status": "approved",
+    "phone": "",
+    "history": "",
+    "name": "Shawn Goosenberg"
+  },
+  {
+    "id": "legacy-1",
+    "status": "approved",
+    "phone": "7739516849",
+    "history": "",
+    "name": "Belle Zelazny"
+  },
+  {
+    "id": "legacy-2",
+    "status": "approved",
+    "phone": "8185850424",
+    "history": "",
+    "name": "Jerry Goosenberg"
+  },
+  {
+    "id": "d9fc1c2e5dec4785aa95f944193b7e26",
+    "status": "approved",
+    "phone": "8973672987",
+    "history": "I played football at William and Mary. Here's a link to my HUDL",
+    "name": "Rob Jackson"
+  }
+]
