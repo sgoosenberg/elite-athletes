@@ -1,0 +1,3 @@
+[functions.smooth-api]
+verify_jwt = false
+entrypoint = "./functions/submit-application/index.ts"

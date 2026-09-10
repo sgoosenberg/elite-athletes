@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Elite Athletes</title>
+  <style>
+:root { color-scheme: light; --ink: #16354a; --muted: #486477; --blue: #83d2f0; --red: #c9253a; --line: #16354a; --font: 'Century Schoolbook', 'New Century Schoolbook', serif; }
+* { box-sizing: border-box; }
+video { display: block; width: 100%; max-width: 560px; max-height: 360px; border-radius: 12px; background: #16354a; }
+.highlights { margin-top: 24px; }
+.highlights summary { color: #a51d30; cursor: pointer; text-decoration: underline; font-weight: bold; }
+.highlights p { color: var(--muted); font-size: 14px; }
+body { margin: 0; min-height: 100vh; color: var(--ink); background: radial-gradient(circle, #83d2f055 1.5px, transparent 1.5px) 0 0 / 22px 22px, #f4fbff; font-family: var(--font); }
+body::before { content: ''; display: block; height: 16px; background: var(--blue); border-bottom: 3px solid var(--ink); }
+main { width: min(1060px, calc(100% - 40px)); margin: auto; padding: 40px 0 64px; }
+.flag { display: flex; gap: 15px; width: fit-content; padding: 10px 22px; margin-bottom: 24px; background: white; border-top: 9px solid var(--blue); border-bottom: 9px solid var(--blue); transform: rotate(-3deg); }
+.flag i { display: block; width: 22px; height: 26px; background: var(--red); clip-path: polygon(50% 0%, 63% 28%, 93% 25%, 77% 50%, 93% 75%, 63% 72%, 50% 100%, 37% 72%, 7% 75%, 23% 50%, 7% 25%, 37% 28%); }
+.eyebrow { color: var(--red); font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; margin: 0 0 12px; }
+h1, h2, h3 { font-family: var(--font); font-weight: 900; }
+h1 { margin: 0; font-size: clamp(48px, 8vw, 92px); line-height: 1.02; letter-spacing: -3px; color: var(--red); }
+h2 { margin: 0 0 22px; font-size: 28px; letter-spacing: -1px; }
+h3 { margin: 0; font-size: 23px; overflow-wrap: anywhere; }
+p { line-height: 1.6; }
+.intro { max-width: 630px; margin: 24px 0 32px; font-size: 17px; color: var(--muted); }
+.portal { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 24px; align-items: start; }
+.panel, .review-section { background: white; border: 2px solid var(--ink); border-radius: 22px; padding: 30px; box-shadow: 6px 6px 0 var(--ink); min-width: 0; }
+label { display: block; margin: 20px 0 8px; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+input:not([type=hidden]), textarea { display: block; width: 100%; border: 2px solid var(--ink); border-radius: 12px; padding: 14px; color: var(--ink); background: white; font: 16px/1.5 var(--font); }
+input::placeholder, textarea::placeholder { color: #5b6c78; opacity: 1; }
+textarea { min-height: 90px; height: 90px; resize: vertical; }
+:focus-visible { outline: 3px solid #005b8a; outline-offset: 4px; }
+button { border: 2px solid var(--ink); border-radius: 12px; padding: 14px 24px; color: white; background: var(--red); font: 900 17px var(--font); cursor: pointer; box-shadow: 3px 3px 0 var(--ink); transition: transform .12s, box-shadow .12s; }
+button:hover { transform: translate(-1px, -2px); box-shadow: 4px 5px 0 var(--ink); }
+button:active { transform: translate(2px, 2px); box-shadow: none; }
+.panel button { width: 100%; margin-top: 24px; }
+.list-heading { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+.count, h2 span { display: inline-block; white-space: nowrap; background: var(--blue); border: 1px solid var(--ink); border-radius: 30px; padding: 6px 11px; font: 900 12px var(--font); }
+.name-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.name-list li { padding: 16px; background: #edf8ff; border-radius: 12px; border-left: 5px solid var(--red); font: 900 21px var(--font); overflow-wrap: anywhere; }
+.empty { color: var(--muted); padding: 18px; border: 2px dashed #94b4c5; border-radius: 12px; font-size: 15px; }
+.notice { padding: 14px; border: 2px solid var(--ink); border-radius: 12px; font-size: 14px; margin: 0 0 20px; }
+.success { color: var(--ink); background: white; }
+.error { color: #991c2c; background: #fff0f2; }
+a { color: #a51d30; font-weight: bold; text-underline-offset: 4px; }
+.back-link { display: inline-block; margin-bottom: 25px; }
+.backend h1 { font-size: clamp(42px, 7vw, 76px); }
+.review-section { margin-top: 28px; border-top: 10px solid var(--blue); }
+.review-section.status-approved { border-top-color: #2688b0; }
+.review-section.status-denied { border-top-color: var(--red); }
+article { border-top: 2px dashed #b8d9e8; padding: 24px 0; }
+article:last-child { padding-bottom: 0; }
+.history { white-space: pre-wrap; overflow-wrap: anywhere; color: var(--muted); }
+article form { display: flex; flex-wrap: wrap; gap: 12px; }
+button.approved { background: var(--blue); color: var(--ink); }
+button.denied { background: var(--red); }
+@media (max-width: 680px) { main { width: calc(100% - 32px); padding-top: 28px; } .portal { grid-template-columns: 1fr; } .panel, .review-section { padding: 22px; box-shadow: 4px 4px 0 var(--ink); } h1 { letter-spacing: -2px; } }
+@media (prefers-reduced-motion: reduce) { button { transition: none; } }
+</style>
+<style>.portal {display:block; max-width:720px; margin:auto}</style><script src="./config.js" defer></script><script src="./app.js" defer></script></head>
+<body>
+  <main>
+    <div class="flag" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    <p class="eyebrow">Elite Athletes applications</p>
+    <h1>Elite Athletes</h1>
+    <p class="intro">Elite Athletes is a Chicago community for high level pickup sports.</p>
+    <section class="portal">
+      <form class="panel" enctype="multipart/form-data" method="post" action="/elite-athletes">
+        <h2>Join the community</h2><p id="notice" role="status" aria-live="polite"></p><noscript>Enable JavaScript to submit an application.</noscript>
+        
+        <label for="name">Full name</label>
+        <input id="name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="e.g. Maya Chen" required autofocus>
+        <label for="phone">Phone number</label>
+        <input id="phone" name="phone" type="tel" maxlength="30" autocomplete="tel" placeholder="e.g. (555) 123-4567" required>
+        <label class="history-label" for="history">Athlete history (optional)</label>
+        <textarea id="history" name="history" maxlength="2000" placeholder="Ex: Three sport varsity athlete, football at University of Virginia"></textarea>
+        <details class="highlights">
+          <summary>Highlights (Optional)</summary>
+          <p>Paste a link that shows off your athleticism.</p>
+          <label for="highlights-url">Highlights link</label>
+          <input id="highlights-url" name="highlights_url" type="url" maxlength="2000" placeholder="https://...">
+
+        </details>
+        <button type="submit" disabled>Submit</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

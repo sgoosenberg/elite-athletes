@@ -1,0 +1,7 @@
+# Static frontend only. No Python service or admin credentials are deployed.
+services:
+  - type: web
+    name: elite-athletes-form
+    runtime: static
+    buildCommand: "true"
+    staticPublishPath: ./docs

@@ -15,3 +15,12 @@ __pycache__/
 
 # macOS
 .DS_Store
+
+# Private highlight videos
+uploads/
+
+# Local hosted exports
+exports/
+
+# Mac-only admin credentials
+local_admin/secrets.json
