@@ -229,7 +229,7 @@ def render_page(names, message="", error=False):
     {FLAG_MARK}
     <p class="eyebrow">Elite Athletes applications</p>
     <h1>Elite Athletes</h1>
-    <p class="intro">Elite Athletes is a Chicago community for high level pickup sports. Send this to the best athlete you know</p>
+    <p class="intro">Elite Athletes is a Chicago community for high level pickup sports. Send this to the best athlete you know.</p>
     <section class="portal">
       <form class="panel" enctype="multipart/form-data" method="post" action="{PORTAL_PATH}">
         <h2>Join the community</h2>
