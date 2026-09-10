@@ -60,7 +60,7 @@ async function loadRoster() {
       return item;
     });
     list.replaceChildren(...items);
-    status.textContent = items.length ? `${items.length} approved athlete${items.length === 1 ? '' : 's'}` : 'No approved athletes yet. Check back soon.';
+    status.textContent = items.length ? '' : 'No approved athletes yet. Check back soon.';
   } catch {
     status.textContent = 'The roster is temporarily unavailable. Please refresh to try again.';
   }

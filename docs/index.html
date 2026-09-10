@@ -57,13 +57,13 @@ button.denied { background: var(--red); }
 @media (max-width: 680px) { main { width: calc(100% - 32px); padding-top: 28px; } .portal { grid-template-columns: 1fr; } .panel, .review-section { padding: 22px; box-shadow: 4px 4px 0 var(--ink); } h1 { letter-spacing: -2px; } }
 @media (prefers-reduced-motion: reduce) { button { transition: none; } }
 </style>
-<style>.portal {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)} #roster-list {padding-left:1.3rem} #roster-list li {padding:8px 0;overflow-wrap:anywhere} @media(max-width:700px){.portal{grid-template-columns:1fr}}</style><script src="./config.js?v=e32c2af28866" defer></script><script src="./app.js?v=10576814e401" defer></script></head>
+<style>.portal {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)} #roster-list {padding-left:1.3rem} #roster-list li {padding:8px 0;overflow-wrap:anywhere} @media(max-width:700px){.portal{grid-template-columns:1fr}}</style><script src="./config.js?v=e32c2af28866" defer></script><script src="./app.js?v=f3e17b892350" defer></script></head>
 <body>
   <main>
     <div class="flag" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
     <p class="eyebrow">Elite Athletes applications</p>
     <h1>Elite Athletes</h1>
-    <p class="intro">Elite Athletes is a Chicago community for high level pickup sports.</p>
+    <p class="intro">Elite Athletes is a Chicago community for high level pickup sports. Send this to the best athlete you know</p>
     <section class="portal">
       <form class="panel" enctype="multipart/form-data" method="post" action="/elite-athletes">
         <h2>Join the community</h2><p id="notice" role="status" aria-live="polite"></p><noscript>Enable JavaScript to submit an application.</noscript>
@@ -82,7 +82,7 @@ button.denied { background: var(--red); }
 
         </details>
         <button type="submit" disabled>Submit</button>
-      </form><aside class="panel" aria-labelledby="roster-heading"><h2 id="roster-heading">Approved athletes</h2><p id="roster-status" role="status">Loading roster…</p><ul id="roster-list"></ul></aside>
+      </form><aside class="panel" aria-labelledby="roster-heading"><h2 id="roster-heading">Roster</h2><p id="roster-status" role="status">Loading roster…</p><ul id="roster-list"></ul></aside>
     </section>
   </main>
 </body>
