@@ -1,4 +1,4 @@
-// Public insert-only endpoint. Privileged credentials never leave this function.
+// Public applications and approved names only. Credentials stay on the server.
 Deno.serve(async (req: Request) => {
   const origin = Deno.env.get('PUBLIC_ORIGIN');
   const headers = new Headers({'Content-Type': 'application/json', 'Cache-Control': 'no-store'});
@@ -7,9 +7,30 @@ Deno.serve(async (req: Request) => {
   if (req.headers.get('origin') !== origin) return reply(403, {error: 'Origin not allowed.'});
   headers.set('Access-Control-Allow-Origin', origin);
   headers.set('Vary', 'Origin');
-  headers.set('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  headers.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   headers.set('Access-Control-Allow-Headers', 'content-type');
   if (req.method === 'OPTIONS') return new Response(null, {status: 204, headers});
+  if (req.method === 'GET') {
+    try {
+      const project = Deno.env.get('SUPABASE_URL');
+      const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
+      if (!project || !key) return reply(503, {error: 'Roster is temporarily unavailable.'});
+      const auth: Record<string, string> = {apikey: key};
+      if (!key.startsWith('sb_secret_')) auth.Authorization = `Bearer ${key}`;
+      const athletes: {name: string}[] = [];
+      for (let offset = 0; ; offset += 500) {
+        const result = await fetch(`${project}/rest/v1/athlete_submissions?select=name&status=eq.approved&order=name.asc,id.asc&limit=500&offset=${offset}`, {headers: auth});
+        if (!result.ok) throw new Error('Roster unavailable');
+        const rows = await result.json();
+        if (!Array.isArray(rows)) throw new Error('Invalid roster');
+        athletes.push(...rows.map(row => ({name: String(row.name)})));
+        if (rows.length < 500) break;
+      }
+      return reply(200, {athletes});
+    } catch {
+      return reply(503, {error: 'Roster is temporarily unavailable.'});
+    }
+  }
   if (req.method !== 'POST') return reply(405, {error: 'Method not allowed.'});
   if (!req.headers.get('content-type')?.startsWith('application/x-www-form-urlencoded')) return reply(415, {error: 'Unsupported submission format.'});
   try {

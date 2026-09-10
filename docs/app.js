@@ -40,7 +40,29 @@ try {
   if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.pathname !== '/functions/v1/smooth-api') throw new Error('Invalid endpoint');
   endpoint = url.href;
   button.disabled = false;
-  message('Your application is visible only to the organizer.');
+  message('Your name will appear on the public roster if approved. Your phone number and application details stay private.');
 } catch {
   message('Submissions are not open yet. Please check back soon.', true);
 }
+
+async function loadRoster() {
+  const status = document.querySelector('#roster-status');
+  const list = document.querySelector('#roster-list');
+  try {
+    if (!endpoint) throw new Error('Missing endpoint');
+    const response = await fetch(endpoint, {credentials: 'omit', cache: 'no-store'});
+    if (!response.ok) throw new Error('Roster unavailable');
+    const data = await response.json();
+    if (!Array.isArray(data.athletes)) throw new Error('Invalid roster');
+    const items = data.athletes.map(athlete => {
+      const item = document.createElement('li');
+      item.textContent = athlete.name;
+      return item;
+    });
+    list.replaceChildren(...items);
+    status.textContent = items.length ? `${items.length} approved athlete${items.length === 1 ? '' : 's'}` : 'No approved athletes yet. Check back soon.';
+  } catch {
+    status.textContent = 'The roster is temporarily unavailable. Please refresh to try again.';
+  }
+}
+loadRoster();

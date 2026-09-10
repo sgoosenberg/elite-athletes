@@ -1,14 +1,14 @@
 # Elite Athletes
 
-The public website is an application form only. Applications are stored in Supabase;
+The public website includes an application form and a names-only roster of approved athletes. Applications are stored in Supabase;
 review and approval run in a Python dashboard bound to 127.0.0.1 on your Mac.
-There is no public roster or hosted admin dashboard.
+Phone numbers and application details remain private. There is no hosted admin dashboard.
 
 ## Pieces
 
 - `docs/`: the only public website artifact. No admin code or secrets.
 - `supabase/functions/submit-application/`: an anonymous POST endpoint that validates
-  fields and inserts pending applications. It cannot list applicants or approve them.
+  fields and inserts pending applications. GET returns only approved athlete names; it cannot approve applicants.
 - `supabase_setup.sql`: existing `athlete_submissions` schema with Row Level Security
   and no anonymous/authenticated table privileges. Existing records are preserved.
   Statuses remain pending/approved/denied for compatibility with saved applications.
@@ -38,7 +38,7 @@ The function config maps `smooth-api` to that local source file.
    `https://azdpgtwltbjhtgnnffil.supabase.co/functions/v1/smooth-api`.
 
 The endpoint limits request size, validates fields, ignores client-supplied IDs and
-statuses, and never returns applicant records. Origin checking controls browser
+statuses, and returns only approved names on GET. Origin checking controls browser
 access; it is not bot protection. CAPTCHA/rate limiting is not yet configured.
 
 ## Public deployment
@@ -100,5 +100,5 @@ Run `python3 -B -m unittest -v`. Tests cover the form-only public artifact, reti
 hosted routes, localhost binding, CSRF, approvals, storage failures and pagination.
 The Edge Function requires a Supabase/Deno environment for runtime verification.
 After configuration, submit a test application, check it is pending locally, approve
-it and verify that the public site still shows only the form. Confirm direct
-anonymous table reads/writes are denied and GET on the function returns 405.
+it and verify that the public roster shows the approved name without private details. Confirm direct
+anonymous table reads/writes are denied and GET on the function returns only approved names when called with the configured Origin.

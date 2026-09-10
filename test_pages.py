@@ -30,9 +30,11 @@ class PagesTests(unittest.TestCase):
         with patch.object(portal, 'load_names', side_effect=AssertionError('Private read')):
             build_pages.build()
         page = Path('docs/index.html').read_text()
-        for private in ('Roster', 'elite-athletes-backend', 'csrf', 'SUPABASE_SECRET_KEY'):
+        for private in ('elite-athletes-backend', 'csrf', 'SUPABASE_SECRET_KEY'):
             self.assertNotIn(private, page)
         self.assertIn('name="phone"', page)
+        self.assertIn('id="roster-list"', page)
+        self.assertGreater(page.index('id="roster-list"'), page.index('</form>'))
         self.assertNotIn('Private Athlete', portal.render_page([{'name': 'Private Athlete', 'status': 'approved'}]))
 
     def test_server_refuses_network_configuration(self):

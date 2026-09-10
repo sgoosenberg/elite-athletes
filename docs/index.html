@@ -57,7 +57,7 @@ button.denied { background: var(--red); }
 @media (max-width: 680px) { main { width: calc(100% - 32px); padding-top: 28px; } .portal { grid-template-columns: 1fr; } .panel, .review-section { padding: 22px; box-shadow: 4px 4px 0 var(--ink); } h1 { letter-spacing: -2px; } }
 @media (prefers-reduced-motion: reduce) { button { transition: none; } }
 </style>
-<style>.portal {display:block; max-width:720px; margin:auto}</style><script src="./config.js" defer></script><script src="./app.js" defer></script></head>
+<style>.portal {display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)} #roster-list {padding-left:1.3rem} #roster-list li {padding:8px 0;overflow-wrap:anywhere} @media(max-width:700px){.portal{grid-template-columns:1fr}}</style><script src="./config.js" defer></script><script src="./app.js" defer></script></head>
 <body>
   <main>
     <div class="flag" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
@@ -82,7 +82,7 @@ button.denied { background: var(--red); }
 
         </details>
         <button type="submit" disabled>Submit</button>
-      </form>
+      </form><aside class="panel" aria-labelledby="roster-heading"><h2 id="roster-heading">Approved athletes</h2><p id="roster-status" role="status">Loading roster…</p><ul id="roster-list"></ul></aside>
     </section>
   </main>
 </body>
