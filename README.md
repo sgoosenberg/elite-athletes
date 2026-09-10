@@ -1,12 +1,12 @@
 # Elite Athletes
 
 The public website includes an application form and a names-only roster of approved athletes. Applications are stored in Supabase;
-review and approval run in a Python dashboard bound to 127.0.0.1 on your Mac.
-Phone numbers and application details remain private. There is no hosted admin dashboard.
+review and approval are available through the online sign-in portal or the optional Mac dashboard.
+Phone numbers and application details remain private. The online review portal is at `admin.html`, with server-enforced administrator sign-in.
 
 ## Pieces
 
-- `docs/`: the only public website artifact. No admin code or secrets.
+- `docs/`: the only public website artifact. Public form, approved roster, and sign-in page; no credentials or private application data.
 - `supabase/functions/submit-application/`: an anonymous POST endpoint that validates
   fields and inserts pending applications. GET returns only approved athlete names; it cannot approve applicants.
 - `supabase_setup.sql`: existing `athlete_submissions` schema with Row Level Security
@@ -52,7 +52,7 @@ and save it as `SUPABASE_ACCESS_TOKEN` in GitHub Settings > Secrets and variable
 > Actions > New repository secret. Do not put the token in files or chat.
 
 Push changes to `main` to run tests, rebuild the form, and publish only
-`docs/index.html`, `docs/app.js`, and `docs/config.js`. Edit form layout and text
+`docs/index.html`, `docs/app.js`, `docs/config.js`, `docs/admin.html`, and `docs/admin.js`. Edit form layout and text
 in `portal.py`; generated `docs/index.html` is overwritten by the build.
 Changes to `supabase/functions/` or its config also deploy `smooth-api`.
 Database migrations and secrets are not changed by these workflows.
@@ -102,3 +102,17 @@ The Edge Function requires a Supabase/Deno environment for runtime verification.
 After configuration, submit a test application, check it is pending locally, approve
 it and verify that the public roster shows the approved name without private details. Confirm direct
 anonymous table reads/writes are denied and GET on the function returns only approved names when called with the configured Origin.
+
+## Online application review
+
+Open https://sgoosenberg.github.io/elite-athletes/admin.html.
+In Supabase Authentication > Users, create `sgoosenberg@gmail.com` with a private
+password and confirm the email as the project administrator. This account is
+separate from the Supabase dashboard account. No public signup is provided.
+The review function validates each access token with Supabase Auth and requires
+the confirmed administrator email before accessing application data or decisions.
+Sign in, review pending applications, and select Approve or Deny. Refresh loads
+new submissions. Approved names appear publicly after refreshing the roster.
+Tokens are held only in page memory; reloading or signing out requires a new login.
+The session expires normally; the portal then asks you to sign in again.
+The static sign-in page is public, while all application data requires authorization.

@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>Review applications · Elite Athletes</title>
+<style>body{font:16px system-ui;background:#f7f4eb;color:#202b36;margin:0}main{max-width:950px;margin:40px auto;padding:24px}article,form{background:white;border:1px solid #d3d9dd;border-radius:12px;padding:24px;margin:20px 0}label{display:block;margin:12px 0}input,button,select{font:inherit;padding:10px;margin:5px;border-radius:6px;border:1px solid #8296a3}button{cursor:pointer;background:#d9f2fa}button:disabled{opacity:.5;cursor:wait}article p{white-space:pre-wrap;overflow-wrap:anywhere}input{max-width:90%}[hidden]{display:none!important}</style>
+<script src="./admin.js?v=1" defer></script></head><body><main>
+<a href="./">View public website</a><h1>Review applications</h1>
+<p id="message" role="status" aria-live="polite">Sign in with your administrator account.</p>
+<form id="login"><label>Email <input name="email" type="email" autocomplete="username" required></label><label>Password <input name="password" type="password" autocomplete="current-password" required></label><button>Sign in</button></form>
+<section id="review" hidden><button id="refresh">Refresh applications</button><button id="logout">Sign out</button><label>Show <select id="filter"><option value="pending">Pending</option><option value="approved">Approved</option><option value="denied">Denied</option><option value="all">All applications</option></select></label><div id="cards"></div></section>
+</main></body></html>

@@ -17,6 +17,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - run: deno test supabase/functions/review-applications/handler_test.ts
       - uses: supabase/setup-cli@v1
         with:
           version: latest
@@ -29,3 +33,4 @@ jobs:
             exit 1
           fi
           supabase functions deploy smooth-api --project-ref azdpgtwltbjhtgnnffil --use-api
+          supabase functions deploy review-applications --project-ref azdpgtwltbjhtgnnffil --use-api
