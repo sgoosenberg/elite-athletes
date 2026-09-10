@@ -42,7 +42,7 @@ try {
   button.disabled = false;
   message('Your name will appear on the public roster if approved. Your phone number and application details stay private.');
 } catch {
-  message('Submissions are not open yet. Please check back soon.', true);
+  message('The form configuration could not load. Please refresh this page or open the live website again.', true);
 }
 
 async function loadRoster() {

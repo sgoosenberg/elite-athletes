@@ -8,6 +8,14 @@ import build_pages
 
 
 class PagesTests(unittest.TestCase):
+    def test_build_versions_scripts_from_current_contents(self):
+        from hashlib import sha256
+        build_pages.build()
+        page = Path('docs/index.html').read_text()
+        for script in ('config.js', 'app.js'):
+            version = sha256(Path('docs', script).read_bytes()).hexdigest()[:12]
+            self.assertIn(f'./{script}?v={version}', page)
+
     def test_configured_endpoint_matches_browser_validation(self):
         import re
         from urllib.parse import urlsplit
