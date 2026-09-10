@@ -37,7 +37,7 @@ form.addEventListener('submit', async event => {
 });
 try {
   const url = new URL(window.ELITE_ATHLETES_SUBMIT_URL);
-  if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.pathname !== '/functions/v1/submit-application') throw new Error('Invalid endpoint');
+  if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || url.pathname !== '/functions/v1/smooth-api') throw new Error('Invalid endpoint');
   endpoint = url.href;
   button.disabled = false;
   message('Your application is visible only to the organizer.');

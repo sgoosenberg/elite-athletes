@@ -8,6 +8,16 @@ import build_pages
 
 
 class PagesTests(unittest.TestCase):
+    def test_configured_endpoint_matches_browser_validation(self):
+        import re
+        from urllib.parse import urlsplit
+        config = Path('docs/config.js').read_text()
+        app = Path('docs/app.js').read_text()
+        endpoint = re.search(r'ELITE_ATHLETES_SUBMIT_URL\s*=\s*"([^"]+)"', config).group(1)
+        required_path = re.search(r"url.pathname !== '([^']+)'", app).group(1)
+        self.assertEqual(urlsplit(endpoint).path, required_path)
+        self.assertEqual(urlsplit(endpoint).scheme, 'https')
+
     def test_retired_host_never_serves_admin_or_data(self):
         for path in ('/', '/elite-athletes', '/elite-athletes-backend', '/highlights/a.mp4'):
             for method in ('GET', 'POST'):
